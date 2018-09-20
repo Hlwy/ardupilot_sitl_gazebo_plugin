@@ -63,10 +63,10 @@ namespace gazebo {
    class AircraftPlugin : public ModelPlugin {
 
       // Constructor
-      public: 
+      public:
          AircraftPlugin();
          virtual ~AircraftPlugin();
-         virtual void InitializeParams(); 
+         virtual void InitializeParams();
 
       protected:
          virtual void Load(physics::ModelPtr _model, sdf::ElementPtr _sdf);
@@ -74,8 +74,8 @@ namespace gazebo {
          virtual void OnUpdate(const common::UpdateInfo & /*_info*/);
          virtual void OnControl(const mav_msgs::CommandMotorSpeedConstPtr& roll_velocities);
 
-      private: 
-         void UpdatePIDs(double _dt); 
+      private:
+         void UpdatePIDs(double _dt);
 
          // Read an SDF parameter with a joint name and initialize a pointer to this joint.
             // _sdfParam SDF parameter containing a joint name.
@@ -117,20 +117,20 @@ namespace gazebo {
          boost::thread callback_queue_thread_;
          double sampling_time_ =0;
          double prev_sim_time_ = 0;
-      
+
          // Max propeller RPM.
          int32_t propellerMaxRpm = 37500;
          double limit_Upper = 0;
-         double limit_Lower = 0;	
+         double limit_Lower = 0;
 
          //Next command to be applied to the propeller and control surfaces.
          std::array<float, 5> cmds;
-      
+
          // Velocity PID for the propeller.
          common::PID propellerPID;
-      
+
          // Position PID for the control surfaces.
-         std::array<common::PID, 6> controlSurfacesPID;         
+         std::array<common::PID, 6> controlSurfacesPID;
 
          // Controller update mutex.
          std::mutex mutex;

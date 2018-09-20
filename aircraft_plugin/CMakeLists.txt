@@ -4,7 +4,8 @@ project(aircraft_plugin)
 # Load catkin and all dependencies required for this package
 find_package(catkin REQUIRED COMPONENTS 
   roscpp 
-  gazebo_ros 
+  gazebo_ros
+  mav_msgs
 )
 
 # Depend on system install of Gazebo
@@ -19,10 +20,12 @@ add_library(${PROJECT_NAME}
   src/aircraft_plugin.cpp
 )
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
+add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_generate_messages_cpp)
 
 catkin_package(
   DEPENDS 
     roscpp 
     gazebo_ros 
+    mav_msgs
 )
 

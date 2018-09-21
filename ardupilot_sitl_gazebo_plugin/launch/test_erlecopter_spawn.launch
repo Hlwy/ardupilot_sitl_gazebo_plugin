@@ -1,0 +1,36 @@
+<launch>
+	<!-- Enable simulation clock -->
+	<param name="use_sim_time" type="bool" value="true" />
+
+	<!-- Choose specific world to load -->
+	<arg name="world_name" default="$(find ardupilot_sitl_gazebo_plugin)/worlds/empty_world/multi_copter_empty.world"/>
+
+	<!-- Gazebo GUI Config -->
+	<arg name="headless" default="false"/>
+	<arg name="gui" default="true"/>
+	<arg name="debug" default="true"/>
+	<arg name="verbose" default="true"/>
+
+	<!-- Drone A Configuration -->
+	<arg name="bot_type" default="erlecopter"/>
+	<arg name="bot_ns" default="red2"/>
+	<arg name="bot_fcu" default="tcp://127.0.0.1:5770"/>
+	<arg name="bot_gcs" default="udp://127.0.0.1@127.0.0.1:14560"/>
+
+
+	<!-- Load & Launch First Drone -->
+	<include file="$(find ardupilot_sitl_gazebo_plugin)/launch/single_erlecopter.launch">
+		<arg name="namespace" value="$(arg bot_ns)"/>
+		<arg name="name" value="$(arg bot_type)"/>
+		<arg name="fcuAdr" value="$(arg bot_fcu)"/>
+		<arg name="gcsAdr" value="$(arg bot_gcs)"/>
+		<arg name="x" value="1.0"/>
+	</include>
+
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+		<arg name="paused" value="true"/>
+		<arg name="gui" value="$(arg gui)"/>
+		<arg name="world_name" value="$(arg world_name)"/>
+	</include>
+
+</launch>

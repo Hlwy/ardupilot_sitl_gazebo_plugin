@@ -1,8 +1,12 @@
 <?xml version="1.0"?>
-
 <robot name="erlecopter" xmlns:xacro="http://ros.org/wiki/xacro">
+	<arg name="nspace" default=""/>
+
+
+
   <!-- Properties -->
-  <xacro:property name="namespace" value="erlecopter" />
+  <xacro:property name="namespace" value="$(arg nspace)/erlecopter" />
+  <xacro:property name="bot_name" value="erlecopter" />
   <xacro:property name="rotor_velocity_slowdown_sim" value="10" />
   <xacro:property name="mesh_file" value="erlecopter.dae" />
   <xacro:property name="mesh_scale" value="1 1 1"/> <!-- 1 1 1 -->
@@ -47,7 +51,7 @@
   <!-- Included URDF Files -->
   <!-- <xacro:include filename="$(find rotors_description)/urdf/multirotor_base.xacro" /> -->
   <xacro:include filename="$(find ardupilot_sitl_gazebo_plugin)/urdf/multirotor_base.xacro" />
-  
+
   <!-- Instantiate multirotor_base_macro once -->
   <xacro:multirotor_base_macro
     robot_namespace="${namespace}"
@@ -61,9 +65,9 @@
     >
     <xacro:insert_block name="body_inertia" />
   </xacro:multirotor_base_macro>
-  
+
   <xacro:property name="M_PI" value="3.1415926535897931" />
-  
+
   <!-- Recorder cameras -->
   <xacro:include filename="$(find ardupilot_sitl_gazebo_plugin)/urdf/recorder_camera.xacro" />
   <!--
@@ -114,9 +118,9 @@
     video_filename="cam_rear_with_uav"
     video_fileext="avi">
     <origin xyz="0.6 0.0 -0.12" rpy="0 ${-20*M_PI/180} ${180*M_PI/180}"/>
-  </xacro:recorder_camera> 
+  </xacro:recorder_camera>
   -->
-  
+
   <!--
   <xacro:recorder_camera
     name="recorder_cam_rear_with_uav2"
@@ -131,9 +135,9 @@
     video_filename="cam_rear_with_uav2"
     video_fileext="avi">
     <origin xyz="0.4 0.0 0.12" rpy="0 ${20*M_PI/180} ${180*M_PI/180}"/>
-  </xacro:recorder_camera> 
+  </xacro:recorder_camera>
   -->
-  
+
   <!-- Recorder cameras END -->
 
   <!-- Sonar height sensor -->
@@ -169,7 +173,7 @@
 
   <xacro:include filename="$(find ardupilot_sitl_gazebo_plugin)/urdf/sensors/lidar_sensor.urdf.xacro" />
    <xacro:lidar_sensor
-    name="sonar2"
+    name="lidar"
     parent="base_link"
     ros_topic="sonar_front"
     update_rate="10"
@@ -198,7 +202,7 @@
     hfov="81"
     framename="erlecopter_bottomcam">
     <origin xyz="0.14 0.0 -0.02" rpy="0 ${M_PI/2} 0"/>
-  </xacro:generic_camera>  
+  </xacro:generic_camera>
 
   <!-- Front facing camera -->
   <xacro:include filename="$(find ardupilot_sitl_gazebo_plugin)/urdf/sensors/generic_camera.urdf.xacro" />
@@ -214,7 +218,7 @@
     hfov="81"
     framename="erlecopter_frontcam">
     <origin xyz="0.17 0.0 0.0" rpy="0 0 0"/>
-  </xacro:generic_camera>  
+  </xacro:generic_camera>
 
   <!-- Instantiate rotors -->
   <xacro:vertical_rotor

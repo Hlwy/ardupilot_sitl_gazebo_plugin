@@ -53,13 +53,20 @@
 			</attenuation>
 		</light>
 
-
 		<include>
 			<uri>model://ground_plane</uri>
 		</include>
 
-		<plugin name="ardupilot_sitl_gazebo_plugin" filename="libardupilot_sitl_gazebo_plugin.so">
-			<UAV_MODEL>erlecopter</UAV_MODEL>
+		<plugin name="ardupilot_sitl_gazebo_pluginA" filename="libardupilot_sitl_gazebo_plugin.so">
+			<UAV_MODEL>red1/erlecopter</UAV_MODEL>
+			<PORT_NO>9002</PORT_NO>
+			<PORT_OUT>9003</PORT_OUT>
+		</plugin>
+
+		<plugin name="ardupilot_sitl_gazebo_pluginB" filename="libardupilot_sitl_gazebo_plugin.so">
+			<UAV_MODEL>red2/erlecopter</UAV_MODEL>
+			<PORT_NO>9012</PORT_NO>
+			<PORT_OUT>9013</PORT_OUT>
 		</plugin>
 
 	</world>
